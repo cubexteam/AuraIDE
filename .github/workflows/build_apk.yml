@@ -5,8 +5,8 @@ on:
     branches:
       - main
     tags:
-      - 'v*' # Срабатывает при создании тега версии (например, v1.0.0)
-  workflow_dispatch: # Позволяет запускать сборку вручную из интерфейса GitHub
+      - 'v*'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -27,11 +27,11 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Ensure Executable Gradle Wrapper
-      run: chmod +x gradlew
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
 
     - name: Assemble Debug Build
-      run: ./gradlew assembleDebug
+      run: gradle assembleDebug
 
     - name: Align and Format Artifact Package Names
       run: |

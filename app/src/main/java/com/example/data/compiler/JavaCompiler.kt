@@ -10,12 +10,12 @@ class JavaCompiler {
         val errWriter = StringWriter()
         
         val args = arrayOf(
-            "-1.8",                              // Версия совместимости исходного кода
+            "-1.8",
             "-source", "1.8",
             "-target", "1.8",
-            "-cp", androidJarPath,               // Путь к системным API android.jar
-            "-d", outputDirectory.absolutePath,  // Выходная директория для .class файлов
-            sourceFile.absolutePath              // Исходный файл Java
+            "-cp", androidJarPath,
+            "-d", outputDirectory.absolutePath,
+            sourceFile.absolutePath
         )
         
         val success = org.eclipse.jdt.internal.compiler.batch.Main.compile(

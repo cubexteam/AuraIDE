@@ -7,7 +7,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Folder
+import androidx.compose.material.icons.filled.Lightbulb
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -66,7 +70,6 @@ fun EditorScreen(
                 .padding(padding)
                 .background(MaterialTheme.colorScheme.surface)
         ) {
-            // Tabs strip
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -84,13 +87,11 @@ fun EditorScreen(
             
             Divider()
             
-            // Editor Area
             Row(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
             ) {
-                // Line Numbers
                 Column(
                     modifier = Modifier
                         .fillMaxHeight()
@@ -111,7 +112,6 @@ fun EditorScreen(
                     }
                 }
                 
-                // Code Input
                 BasicTextField(
                     value = code,
                     onValueChange = { code = it },
@@ -127,7 +127,6 @@ fun EditorScreen(
                 )
             }
             
-            // Quick Symbol Bar
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -141,7 +140,7 @@ fun EditorScreen(
                     Surface(
                         onClick = { 
                             val toInsert = if (symbol == "Tab") "    " else symbol
-                            code += toInsert // Simplistic insert
+                            code += toInsert
                         },
                         shape = MaterialTheme.shapes.small,
                         color = MaterialTheme.colorScheme.surface

@@ -24,7 +24,6 @@ class ExecutionEngine(private val context: Context) {
         val originalIn = System.`in`
         
         try {
-            // Перенаправление стандартных системных потоков во встроенный UI консоли
             System.setOut(PrintStream(ioBridge.outputStream, true))
             System.setErr(PrintStream(ioBridge.errorStream, true))
             System.setIn(ioBridge.inputStream)
@@ -32,12 +31,10 @@ class ExecutionEngine(private val context: Context) {
             val targetClass = classLoader.loadClass(mainClassName)
             val mainMethod = targetClass.getMethod("main", Array<String>::class.java)
             
-            // Запуск целевого метода main в асинхронном режиме
             mainMethod.invoke(null, arrayOf<String>())
         } catch (e: Exception) {
             ioBridge.errorStream.write("${e.cause?.message ?: e.message}\n".toByteArray())
         } finally {
-            // Восстановление потоков ввода-вывода в исходное состояние
             System.setOut(originalOut)
             System.setErr(originalErr)
             System.setIn(originalIn)
