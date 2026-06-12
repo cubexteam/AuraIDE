@@ -2,8 +2,11 @@ name: Generate and Sign Production APK
 
 on:
   push:
+    branches:
+      - main
     tags:
       - 'v*' # Срабатывает при создании тега версии (например, v1.0.0)
+  workflow_dispatch: # Позволяет запускать сборку вручную из интерфейса GitHub
 
 permissions:
   contents: write
@@ -27,26 +30,17 @@ jobs:
     - name: Ensure Executable Gradle Wrapper
       run: chmod +x gradlew
 
-    - name: Retrieve and Decode Release Keystore
-      run: |
-        echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/release-keystore.jks
-
-    - name: Assemble Production Build
-      run: ./gradlew assembleRelease
-      env:
-        KEYSTORE_FILE: release-keystore.jks
-        KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-        KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+    - name: Assemble Debug Build
+      run: ./gradlew assembleDebug
 
     - name: Align and Format Artifact Package Names
       run: |
-        mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/AuraIDE-release.apk
+        mv app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/AuraIDE-debug.apk
 
     - name: Initialize Git Release & Attach Binary Artifacts
       uses: softprops/action-gh-release@v2
       with:
-        files: app/build/outputs/apk/release/AuraIDE-release.apk
+        files: app/build/outputs/apk/debug/AuraIDE-debug.apk
         draft: false
         prerelease: false
       env:
