@@ -46,13 +46,13 @@ fun EditorScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /* Folder action */ }) {
+                    IconButton(onClick = { }) {
                         Icon(Icons.Default.Folder, contentDescription = "Folders")
                     }
-                    IconButton(onClick = { /* Bulb/Tools */ }) {
+                    IconButton(onClick = { }) {
                         Icon(Icons.Default.Lightbulb, contentDescription = "Tools")
                     }
-                    IconButton(onClick = { /* More choices */ }) {
+                    IconButton(onClick = { }) {
                         Icon(Icons.Default.MoreVert, contentDescription = "More")
                     }
                 }
